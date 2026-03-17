@@ -1,0 +1,261 @@
+.pbHeader {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #ffffff;
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+.pbHeaderInner {
+  height: 64px;
+  max-width: none;
+  margin: 0;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.pbLogo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #2b1139;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.pbLogoMark {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #5b21b6, #a855f7);
+}
+
+.pbLogoText {
+  font-size: 14px;
+  letter-spacing: 0.12em;
+}
+
+.pbNav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.pbMenu {
+  position: relative;
+}
+
+.pbNavLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: #3f2a4e;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 8px;
+  border-radius: 10px;
+}
+
+.pbNavLink:hover {
+  background: rgba(91, 33, 182, 0.06);
+}
+
+.pbNavButton {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.pbMenuPanel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 240px;
+  background: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: 14px;
+  padding: 6px;
+  box-shadow: 0 22px 50px rgba(17, 24, 39, 0.18);
+  z-index: 60;
+}
+
+.pbMenuItem {
+  display: block;
+  padding: 10px 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #3f2a4e;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.pbMenuItem:hover {
+  background: rgba(91, 33, 182, 0.06);
+}
+
+.pbNavChevron {
+  opacity: 0.7;
+}
+
+.pbActions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: nowrap;
+}
+
+.pbSearch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid rgba(17, 24, 39, 0.14);
+  border-radius: 999px;
+  background: #fff;
+  min-width: 240px;
+  flex: 0 1 320px;
+  position: relative;
+}
+
+.pbSearchIcon {
+  color: rgba(17, 24, 39, 0.55);
+}
+
+.pbSearchInput {
+  border: 0;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: #111827;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+.pbSearchInput::placeholder {
+  color: rgba(17, 24, 39, 0.5);
+}
+
+.pbHint {
+  position: absolute;
+  left: 44px;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(17, 24, 39, 0.35);
+  font-size: 14px;
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pbHintPrefix {
+  color: inherit;
+}
+
+.pbHintTyped {
+  color: inherit;
+}
+
+.pbHintCaret {
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  margin-left: 2px;
+  background: rgba(17, 24, 39, 0.45);
+  vertical-align: -2px;
+  animation: pbCaretBlink 1s step-end infinite;
+}
+
+@keyframes pbCaretBlink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.pbLogin {
+  text-decoration: none;
+  color: #3f2a4e;
+  font-weight: 700;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.pbLogin:hover {
+  text-decoration: underline;
+}
+
+.pbWelcome {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.pbWelcomeText {
+  color: #3f2a4e;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.pbLogout {
+  border: 1px solid rgba(17, 24, 39, 0.14);
+  background: #fff;
+  color: #3f2a4e;
+  font-weight: 800;
+  font-size: 13px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.pbLogout:hover {
+  background: rgba(91, 33, 182, 0.06);
+}
+
+.pbCta {
+  text-decoration: none;
+  background: #6d28d9;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 14px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.pbCta:hover {
+  background: #5b21b6;
+}
+
+@media (max-width: 980px) {
+  .pbNav {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .pbSearch {
+    min-width: 140px;
+  }
+
+  .pbCta {
+    display: none;
+  }
+}
+

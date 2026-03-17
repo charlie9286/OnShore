@@ -1,0 +1,251 @@
+.createMain {
+  padding: 56px 20px;
+}
+
+.createWrap {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.createTitle {
+  margin: 0 0 10px;
+  font-size: 34px;
+  letter-spacing: -0.02em;
+}
+
+.createSubtitle {
+  margin: 0 0 20px;
+  color: #4b5563;
+}
+
+.createGrid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 16px;
+  align-items: start;
+}
+
+.createCard {
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 18px 40px rgba(17, 24, 39, 0.08);
+  background: #ffffff;
+  display: grid;
+  gap: 12px;
+}
+
+.createSidebar {
+  position: sticky;
+  top: 84px;
+}
+
+.sideCard {
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  border-radius: 16px;
+  padding: 16px;
+  background: #ffffff;
+  box-shadow: 0 18px 40px rgba(17, 24, 39, 0.08);
+  display: grid;
+  gap: 12px;
+}
+
+.sideTitle {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+
+.sideText {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #4b5563;
+}
+
+.cardHeader {
+  display: grid;
+  gap: 4px;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+
+.cardHint {
+  margin: 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.row3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.2fr;
+  gap: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 13px;
+  color: #374151;
+  font-weight: 700;
+}
+
+.fieldInput {
+  min-height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(17, 24, 39, 0.16);
+  padding: 0 12px;
+  font-size: 14px;
+  outline: none;
+  font-family: inherit;
+  background: #fff;
+}
+
+.fieldTextarea {
+  padding: 10px 12px;
+  resize: vertical;
+}
+
+.fieldInput:focus {
+  border-color: rgba(109, 40, 217, 0.7);
+  box-shadow: 0 0 0 4px rgba(109, 40, 217, 0.15);
+}
+
+.fieldHelp {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.primaryBtn,
+.secondaryBtn {
+  height: 44px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 14px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.primaryBtn {
+  background: #6d28d9;
+  color: #fff;
+}
+
+.primaryBtn:hover {
+  background: #5b21b6;
+}
+
+.secondaryBtn {
+  background: #fff;
+  color: #3f2a4e;
+  border-color: rgba(17, 24, 39, 0.16);
+}
+
+.secondaryBtn:hover {
+  background: rgba(91, 33, 182, 0.06);
+}
+
+.formNotice {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+}
+
+.formNotice.success {
+  color: #065f46;
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.formNotice.error {
+  color: #991b1b;
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+.formNotice.loading {
+  color: #374151;
+  background: rgba(17, 24, 39, 0.06);
+  border-color: rgba(17, 24, 39, 0.1);
+}
+
+.photoDrop {
+  border: 1px dashed rgba(17, 24, 39, 0.25);
+  border-radius: 14px;
+  padding: 16px;
+  display: grid;
+  gap: 6px;
+  cursor: pointer;
+  background: rgba(17, 24, 39, 0.02);
+}
+
+.photoInput {
+  display: none;
+}
+
+.photoDropTitle {
+  font-weight: 900;
+  color: #2b1139;
+}
+
+.photoDropHint {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.photoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.photoThumb {
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.photoImg {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  display: block;
+}
+
+.photoName {
+  display: block;
+  padding: 8px 10px;
+  font-size: 12px;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 980px) {
+  .createGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .createSidebar {
+    position: static;
+  }
+}
+
