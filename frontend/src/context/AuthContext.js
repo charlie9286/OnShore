@@ -15,18 +15,37 @@ function buildApiUrl(path) {
   return `${base}${path}`
 }
 
+function buildFallbackUrl(path) {
+  // If the caller configured API_BASE with /api already (or we're wrong about /api),
+  // try the opposite once.
+  if (API_BASE.endsWith('/api')) return `${API_BASE.slice(0, -4)}${path}`
+  return `${API_BASE}${path}`
+}
+
 async function postJson(path, body) {
   let res
+  const primaryUrl = buildApiUrl(path)
   try {
-    res = await fetch(buildApiUrl(path), {
+    res = await fetch(primaryUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     })
   } catch {
-    throw new Error(
-      'Network error: failed to reach the server. Check the API URL and CORS settings.',
-    )
+    // This can be a real network failure OR a CORS-blocked fetch (browser reports it as network error).
+    // Try one fallback URL to handle differing Vercel route layouts.
+    const fallbackUrl = buildFallbackUrl(path)
+    try {
+      res = await fetch(fallbackUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+    } catch {
+      throw new Error(
+        `Network error: failed to reach the server. Tried ${primaryUrl} and ${fallbackUrl}. Check REACT_APP_API_BASE and backend CORS.`,
+      )
+    }
   }
 
   const data = await res.json().catch(() => ({}))
