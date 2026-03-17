@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express'
-import { prisma } from '../services/prisma.js'
+import { getPrisma } from '../services/prisma.js'
 import { ListingType } from '@prisma/client'
 
 function asListingType(value: unknown): ListingType | null {
@@ -19,6 +19,7 @@ export async function listProperties(req: Request, res: Response) {
     : req.query.listingType
   const listingType = ltParam ? asListingType(ltParam) : null
 
+  const prisma = getPrisma()
   const properties = await prisma.property.findMany({
     where: listingType ? { listingType } : undefined,
     orderBy: { createdAt: 'desc' },
@@ -29,6 +30,7 @@ export async function listProperties(req: Request, res: Response) {
 
 export async function getProperty(req: Request, res: Response) {
   const id = String(req.params.id)
+  const prisma = getPrisma()
   const property = await prisma.property.findUnique({ where: { id } })
   if (!property) return res.status(404).json({ ok: false, message: 'Not found' })
   res.json({ ok: true, data: property })
@@ -71,6 +73,7 @@ export async function createProperty(req: Request, res: Response) {
     })
   }
 
+  const prisma = getPrisma()
   const created = await prisma.property.create({
     data: {
       title,
@@ -128,6 +131,7 @@ export async function patchProperty(req: Request, res: Response) {
   if (imageUrls !== undefined) data.imageUrls = asStringArray(imageUrls)
 
   try {
+    const prisma = getPrisma()
     const updated = await prisma.property.update({
       where: { id },
       data,
@@ -141,6 +145,7 @@ export async function patchProperty(req: Request, res: Response) {
 export async function deleteProperty(req: Request, res: Response) {
   const id = String(req.params.id)
   try {
+    const prisma = getPrisma()
     await prisma.property.delete({ where: { id } })
     res.json({ ok: true })
   } catch {
