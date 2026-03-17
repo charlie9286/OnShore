@@ -1,5 +1,6 @@
 import './navbar.css'
 import { useEffect, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 const NAV_ITEMS = [
@@ -132,19 +133,19 @@ export default function Navbar() {
   return (
     <header className="pbHeader">
       <div className="pbHeaderInner">
-        <a className="pbLogo" href="/" aria-label="Home">
+        <Link className="pbLogo" to="/" aria-label="Home">
           <span className="pbLogoMark" aria-hidden="true" />
           <span className="pbLogoText">SHORE</span>
-        </a>
+        </Link>
 
         <nav className="pbNav" aria-label="Primary">
           {NAV_ITEMS.map((item) => {
             const hasChildren = Array.isArray(item.children) && item.children.length > 0
             if (!hasChildren) {
               return (
-                <a key={item.label} className="pbNavLink" href={item.href}>
+                <Link key={item.label} className="pbNavLink" to={item.href}>
                   <span>{item.label}</span>
-                </a>
+                </Link>
               )
             }
 
@@ -170,15 +171,15 @@ export default function Navbar() {
                 {isOpen && (
                   <div className="pbMenuPanel" role="menu" aria-label={`${item.label} menu`}>
                     {item.children.map((child) => (
-                      <a
+                      <Link
                         key={child.href}
                         className="pbMenuItem"
-                        href={child.href}
+                        to={child.href}
                         role="menuitem"
                         onClick={() => setOpenMenu('')}
                       >
                         {child.label}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 )}
@@ -211,14 +212,14 @@ export default function Navbar() {
               </button>
             </div>
           ) : (
-            <a className="pbLogin" href="/login">
+            <Link className="pbLogin" to="/login">
               Log in
-            </a>
+            </Link>
           )}
 
-          <a className="pbCta" href="/book-valuation">
+          <Link className="pbCta" to="/book-valuation">
             Book free house valuation
-          </a>
+          </Link>
         </div>
       </div>
     </header>
