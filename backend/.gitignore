@@ -6,6 +6,3 @@ node_modules
 
 # build output
 dist
-
-# prevent accidental JS in api/ (Vercel uses TS entry)
-api/*.js
