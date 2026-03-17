@@ -4,14 +4,30 @@ import { getFirstNameFromFullName } from '../shared/auth'
 const AuthContext = createContext(null)
 
 const STORAGE_KEY = 'shore.user'
-const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:5050'
+const API_BASE_RAW = process.env.REACT_APP_API_BASE || 'http://localhost:5050'
+const API_BASE = API_BASE_RAW.replace(/\/+$/, '')
+
+function buildApiUrl(path) {
+  // Local dev backend serves routes at /auth/*.
+  // Vercel backend serves routes under /api/* (because it’s deployed from backend/api).
+  const needsApiPrefix = !API_BASE.includes('localhost') && !API_BASE.endsWith('/api')
+  const base = needsApiPrefix ? `${API_BASE}/api` : API_BASE
+  return `${base}${path}`
+}
 
 async function postJson(path, body) {
-  const res = await fetch(`${API_BASE}${path}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  })
+  let res
+  try {
+    res = await fetch(buildApiUrl(path), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    })
+  } catch {
+    throw new Error(
+      'Network error: failed to reach the server. Check the API URL and CORS settings.',
+    )
+  }
 
   const data = await res.json().catch(() => ({}))
   if (!res.ok) throw new Error(data?.error || data?.message || 'Request failed')

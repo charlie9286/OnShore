@@ -2,14 +2,28 @@ import cors from 'cors'
 import express from 'express'
 import { createClient } from '@supabase/supabase-js'
 
-const { SUPABASE_URL, SUPABASE_ANON_KEY, FRONTEND_ORIGIN = 'http://localhost:3000' } =
-  process.env
+const {
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY,
+  // Comma-separated list of allowed origins, or "*" to allow all.
+  FRONTEND_ORIGIN = 'http://localhost:3000',
+} = process.env
 
 const app = express()
 app.use(express.json())
 app.use(
   cors({
-    origin: FRONTEND_ORIGIN,
+    origin: (origin, callback) => {
+      const allowed = String(FRONTEND_ORIGIN)
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean)
+
+      if (allowed.includes('*')) return callback(null, true)
+      if (!origin) return callback(null, true)
+      if (allowed.includes(origin)) return callback(null, true)
+      return callback(new Error(`CORS blocked for origin: ${origin}`))
+    },
     credentials: true,
   }),
 )
