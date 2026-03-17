@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ListingType {
+  SALE
+  RENT
+}
+
+model User {
+  id           String          @id @default(cuid())
+  email        String          @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  properties      Property[]
+  messagesSent    Message[]       @relation("MessagesSent")
+  messagesReceived Message[]      @relation("MessagesReceived")
+  savedProperties SavedProperty[]
+}
+
+model Property {
+  id          String      @id @default(cuid())
+  title       String
+  description String?
+  address     String
+  city        String
+  state       String
+  zip         String
+  price       Int
+  listingType ListingType
+  bedrooms    Int
+  bathrooms   Float
+  squareFeet  Int?
+  imageUrls   String[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  ownerId String
+  owner   User    @relation(fields: [ownerId], references: [id])
+
+  messages Message[]
+  savedBy  SavedProperty[]
+}
+
+model Message {
+  id         String   @id @default(cuid())
+  body       String
+  createdAt  DateTime @default(now())
+
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id])
+
+  fromUserId String
+  fromUser   User     @relation("MessagesSent", fields: [fromUserId], references: [id])
+
+  toUserId String
+  toUser   User @relation("MessagesReceived", fields: [toUserId], references: [id])
+}
+
+model SavedProperty {
+  id         String   @id @default(cuid())
+  createdAt  DateTime @default(now())
+
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id])
+
+  @@unique([userId, propertyId])
+}
