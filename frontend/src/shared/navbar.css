@@ -74,15 +74,25 @@
 
 .pbMenuPanel {
   position: absolute;
-  top: calc(100% + 8px);
+  top: 100%;
   left: 0;
   min-width: 240px;
   background: #ffffff;
   border: 1px solid rgba(17, 24, 39, 0.12);
   border-radius: 14px;
   padding: 6px;
+  margin-top: 8px;
   box-shadow: 0 22px 50px rgba(17, 24, 39, 0.18);
   z-index: 60;
+}
+
+.pbMenuPanel::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -10px;
+  height: 10px;
 }
 
 .pbMenuItem {
