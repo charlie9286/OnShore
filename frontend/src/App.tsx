@@ -4,6 +4,7 @@ import { CreateListing } from './pages/CreateListing'
 import { Dashboard } from './pages/Dashboard'
 import { Home } from './pages/Home'
 import { Login } from './pages/Login'
+import { Register } from './pages/Register'
 import { PropertyDetails } from './pages/PropertyDetails'
 import { SearchResults } from './pages/SearchResults'
 
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/search" element={<SearchResults />} />
           <Route path="/property/:propertyId" element={<PropertyDetails />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/sell/create" element={<CreateListing />} />
 
