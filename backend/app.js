@@ -41,6 +41,14 @@ function getSupabaseOrRespond(res) {
 
 app.get('/health', (_req, res) => res.json({ ok: true }))
 
+app.get('/', (_req, res) => {
+  return res.json({
+    ok: true,
+    service: 'shore-backend',
+    endpoints: ['/api/health', '/api/auth/signup', '/api/auth/login'],
+  })
+})
+
 app.post('/auth/signup', async (req, res) => {
   const supabase = getSupabaseOrRespond(res)
   if (!supabase) return
