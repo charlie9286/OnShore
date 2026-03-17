@@ -36,6 +36,12 @@ Create `frontend/.env`:
 VITE_API_URL=http://localhost:5000
 ```
 
+For production (Vercel), set:
+
+```bash
+VITE_API_URL=https://onshore-6lq6.onrender.com
+```
+
 ### Backend (`backend/.env`)
 Prisma creates `backend/.env` during init. For local dev, you can copy from `backend/.env.example` and adjust:
 

@@ -5,7 +5,7 @@ import {
   getProperty,
   listProperties,
   patchProperty,
-} from '../controllers/property.controller'
+} from '../controllers/property.controller.js'
 
 export const propertyRouter = Router()
 

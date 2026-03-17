@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express'
-import { prisma } from '../services/prisma'
+import { prisma } from '../services/prisma.js'
 import { ListingType } from '@prisma/client'
 
 function asListingType(value: unknown): ListingType | null {
