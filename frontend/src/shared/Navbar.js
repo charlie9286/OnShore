@@ -63,6 +63,24 @@ function SearchIcon(props) {
   )
 }
 
+function MenuIcon(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      aria-hidden="true"
+      focusable="false"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M4 7a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5A1 1 0 0 1 4 7Zm0 5a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Zm1 4a1 1 0 1 0 0 2h14a1 1 0 1 0 0-2H5Z"
+      />
+    </svg>
+  )
+}
+
 function RotatingSearchHint() {
   const suggestions = useMemo(() => ['a postcode', 'a bus stop', 'an area'], [])
   const [suggestionIdx, setSuggestionIdx] = useState(0)
@@ -114,10 +132,14 @@ export default function Navbar() {
   const { user, logout } = useAuth()
   const [searchValue, setSearchValue] = useState('')
   const [openMenu, setOpenMenu] = useState('')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     function onKeyDown(e) {
-      if (e.key === 'Escape') setOpenMenu('')
+      if (e.key === 'Escape') {
+        setOpenMenu('')
+        setMobileMenuOpen(false)
+      }
     }
     function onPointerDown(e) {
       if (!e.target?.closest?.('.pbMenu')) setOpenMenu('')
@@ -130,13 +152,36 @@ export default function Navbar() {
     }
   }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [mobileMenuOpen])
+
+  function closeAllMenus() {
+    setOpenMenu('')
+    setMobileMenuOpen(false)
+  }
+
   return (
     <header className="pbHeader">
       <div className="pbHeaderInner">
-        <Link className="pbLogo" to="/" aria-label="Home">
+        <Link className="pbLogo" to="/" aria-label="Home" onClick={closeAllMenus}>
           <span className="pbLogoMark" aria-hidden="true" />
           <span className="pbLogoText">SHORE</span>
         </Link>
+
+        <button
+          className="pbMobileToggle"
+          type="button"
+          aria-expanded={mobileMenuOpen}
+          aria-controls="pb-mobile-panel"
+          aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          onClick={() => setMobileMenuOpen((open) => !open)}
+        >
+          <MenuIcon />
+        </button>
 
         <nav className="pbNav" aria-label="Primary">
           {NAV_ITEMS.map((item) => {
@@ -206,23 +251,93 @@ export default function Navbar() {
               <button
                 className="pbLogout"
                 type="button"
-                onClick={logout}
+                onClick={() => {
+                  closeAllMenus()
+                  logout()
+                }}
               >
                 Log out
               </button>
             </div>
           ) : (
-            <Link className="pbLogin" to="/login">
+            <Link className="pbLogin" to="/login" onClick={closeAllMenus}>
               Log in
             </Link>
           )}
 
-          <Link className="pbCta" to="/book-valuation">
+          <Link className="pbCta" to="/book-valuation" onClick={closeAllMenus}>
             Book free house valuation
           </Link>
+        </div>
+      </div>
+
+      <div
+        id="pb-mobile-panel"
+        className={`pbMobilePanel ${mobileMenuOpen ? 'is-open' : ''}`}
+      >
+        <div className="pbMobilePanelInner">
+          <label className="pbSearch pbSearchMobile" aria-label="Find a property">
+            <SearchIcon className="pbSearchIcon" />
+            {!searchValue && <RotatingSearchHint />}
+            <input
+              className="pbSearchInput"
+              type="search"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+          </label>
+
+          <nav className="pbMobileNav" aria-label="Mobile primary">
+            {NAV_ITEMS.map((item) => (
+              <div key={item.label} className="pbMobileGroup">
+                <Link className="pbMobileNavLink" to={item.href} onClick={closeAllMenus}>
+                  {item.label}
+                </Link>
+                {item.children?.length > 0 && (
+                  <div className="pbMobileChildren">
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        className="pbMobileChildLink"
+                        to={child.href}
+                        onClick={closeAllMenus}
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </nav>
+
+          <div className="pbMobileActions">
+            {user?.firstName ? (
+              <div className="pbMobileAccount">
+                <span className="pbWelcomeText">Welcome {user.firstName}</span>
+                <button
+                  className="pbLogout"
+                  type="button"
+                  onClick={() => {
+                    closeAllMenus()
+                    logout()
+                  }}
+                >
+                  Log out
+                </button>
+              </div>
+            ) : (
+              <Link className="pbLogin pbLoginMobile" to="/login" onClick={closeAllMenus}>
+                Log in
+              </Link>
+            )}
+
+            <Link className="pbCta pbCtaMobile" to="/book-valuation" onClick={closeAllMenus}>
+              Book free house valuation
+            </Link>
+          </div>
         </div>
       </div>
     </header>
   )
 }
-

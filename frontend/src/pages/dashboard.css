@@ -31,3 +31,21 @@
   padding: 0 16px;
 }
 
+@media (max-width: 720px) {
+  .dashMain {
+    padding: 28px 16px 40px;
+  }
+
+  .dashTitle {
+    font-size: 28px;
+  }
+
+  .dashActions {
+    display: grid;
+  }
+
+  .dashBtn {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

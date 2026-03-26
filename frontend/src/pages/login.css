@@ -178,3 +178,29 @@
   gap: 12px;
 }
 
+@media (max-width: 720px) {
+  .loginMain {
+    padding: 28px 16px 40px;
+  }
+
+  .loginCard {
+    padding: 18px;
+    border-radius: 14px;
+  }
+
+  .modalOverlay {
+    padding: 12px;
+    align-items: end;
+  }
+
+  .modalDialog {
+    width: 100%;
+    max-height: min(90vh, 720px);
+    overflow-y: auto;
+    border-radius: 18px 18px 0 0;
+  }
+
+  .modalHeader {
+    align-items: flex-start;
+  }
+}

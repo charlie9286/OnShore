@@ -43,8 +43,24 @@
 }
 
 @media (max-width: 720px) {
+  .homeMain {
+    padding: 28px 16px 40px;
+  }
+
   .homeTitle {
     font-size: 34px;
   }
-}
 
+  .homeSubtitle {
+    font-size: 16px;
+  }
+
+  .homeImageWrap {
+    margin-top: 20px;
+    border-radius: 14px;
+  }
+
+  .homeImage {
+    height: 240px;
+  }
+}
