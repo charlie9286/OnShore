@@ -10,7 +10,7 @@ export default function Home() {
       <Navbar />
       <main className="homeMain">
         <div className="homeHero">
-          <h1 className="homeTitle">charlies a dickhead</h1>
+          <h1 className="homeTitle">charlie is not a dickhead</h1>
           <p className="homeSubtitle">
             A modern real estate marketplace — we’ll build it step by step.
           </p>
